@@ -1,0 +1,45 @@
+{
+  "_설명": "이지스터 1.8 출발값. 딘 실측이 쌓이면 이 숫자만 바꾸면 됨. 근거 노트 번호는 각 항목 _note 참고",
+  "ror": {
+    "window_sec": 15,
+    "_note": "RoR = 최근 window_sec 동안 온도 변화를 분당으로 환산(℃/min). 라오 권장 15초(12번). 프로브 노이즈가 심하면 20~30초로"
+  },
+  "gas_cut_while_falling": {
+    "short_sec": 20,
+    "long_sec": 90,
+    "margin": 0.8,
+    "_note": "RoR은 원래 계속 내려가는 게 정상(12번). 최근 20초 기울기가 90초 추세보다 0.8 이상 더 가파르면 '직전 감압 여파로 꺼지는 중' → 저점·반등 확인 전 감압 경고 (11·39번)"
+  },
+  "big_gas_cut": {
+    "max_step_early": 4,
+    "max_step_late": 12,
+    "late_bt": 195,
+    "_note": "한 번에 줄이는 화력(mmAq) 상한. 초반 작게, 1차 근처부터 크게 (11·23·49번)"
+  },
+  "wet_dump": {
+    "search_after_tp_sec": 300,
+    "drop_window_sec": 30,
+    "et_ror_drop": 8,
+    "et_ror_floor": 3,
+    "recover_sec": 12,
+    "_note": "TP 후 5분 안에 ET RoR이 30초 사이 8℃/min 이상 꺼지고 3 이하로 내려가면 수분 와장창. 12초 연속 회복하면 해제 (51번)"
+  },
+  "first_crack": {
+    "bt_min": 190,
+    "bt_max": 206,
+    "drop_window_sec": 20,
+    "bt_ror_drop": 2.5,
+    "deep_barrier": 6,
+    "_note": "이지스터 1.8 주성현 1차 200~204℃. 이 구간에서 BT RoR이 20초 사이 2.5 이상 꺼지면 1차 후보, 6 이상이면 깊은 히트 배리어 = 이전 구간 열 부족 (43·49번). 감압 직후 35초 안의 RoR 꺼짐은 감압 때문이라 1차로 안 봄. expected_bt는 1차 도달 예측용",
+    "expected_bt": 202,
+    "ignore_after_gas_cut_sec": 35
+  },
+  "aero_accel": {
+    "step2_bt_min": 140,
+    "step2_bt_max": 150,
+    "fc_lead_sec": 60,
+    "stall_sec": 12,
+    "max_steps": 5,
+    "_note": "투입 최저 → ET TP 1단계 → BT 140~150 2단계 → 1차 60초 전 + BT RoR 정체 12초 3단계. 5회 넘으면 과조작 (37·50번). 3mm 프로브 기준"
+  }
+}

@@ -1,0 +1,680 @@
+{
+  "generated": "2026-10-29",
+  "machine": "Easyster 1.8",
+  "note_count": 53,
+  "notes": [
+    {
+      "id": "00",
+      "file": "notes/00_다음단계_딘머신_기준데이터_수집.md",
+      "title": "다음 단계 — 딘 이지스터 1.8 기준 데이터 수집 (2026-10-25 갱신)",
+      "author_joo": false,
+      "has_program_rules": false,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "BBP",
+        "소프트포인트",
+        "물"
+      ],
+      "chars": 1515
+    },
+    {
+      "id": "01",
+      "file": "notes/01_로스팅_기초이론_통합노트.md",
+      "title": "로스팅 기초이론 통합 노트 (v1)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "다크"
+      ],
+      "chars": 5671
+    },
+    {
+      "id": "02",
+      "file": "notes/02_드럼스피드_현장코칭_유튜브.md",
+      "title": "드럼 스피드 현장 코칭 (유튜브)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "다크"
+      ],
+      "chars": 2460
+    },
+    {
+      "id": "03",
+      "file": "notes/03_ETeRR_두완초내추럴_이지스터4kg_쇼츠.md",
+      "title": "ETeRR 로스팅 리뷰 — 에티오피아 두완초 내추럴 × 이지스터 4kg (쇼츠)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "BBP"
+      ],
+      "chars": 2396
+    },
+    {
+      "id": "04",
+      "file": "notes/04_윤원균_빌드업로스팅_강의소개_유튜브.md",
+      "title": "빌드업 로스팅 강의 소개 — 윤원균 (아이덴티티 커피랩)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "블렌드"
+      ],
+      "chars": 5119
+    },
+    {
+      "id": "05",
+      "file": "notes/05_파이어스코프_데이터로스팅_케냐3배치.md",
+      "title": "데이터 기반 로스팅 가이드 — 케냐 3배치 개선 사례",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR"
+      ],
+      "chars": 4309
+    },
+    {
+      "id": "06",
+      "file": "notes/06_밀도별로스팅_스트롱홀드_임지영.md",
+      "title": "밀도가 다른 두 생두 로스팅 — 스트롱홀드 앰버서더 임지영",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR"
+      ],
+      "chars": 4004
+    },
+    {
+      "id": "07",
+      "file": "notes/07_생두_품종·산지·커핑·구매_대담.md",
+      "title": "생두 이해 — 품종·산지 방문·분류·당도·가공·커핑 (대담 영상)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "블렌드"
+      ],
+      "chars": 5573
+    },
+    {
+      "id": "08",
+      "file": "notes/08_제주물_수질과_커피추출.md",
+      "title": "제주 물 — 수질 데이터와 커피 추출 (딘 경험 + 공식 수질검사)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "물",
+        "블렌드"
+      ],
+      "chars": 6128
+    },
+    {
+      "id": "09",
+      "file": "notes/09_제주물_딘현장경험_필터선택.md",
+      "title": "제주 물 — 딘 현장 경험 보충 + 매장 필터 선택",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "물"
+      ],
+      "chars": 3282
+    },
+    {
+      "id": "10",
+      "file": "notes/10_스트롱홀드S7_대회프로파일피드백_주성현_쇼츠.md",
+      "title": "대회 예선 연습 프로파일 피드백 — 주성현 (Stronghold S7) + 드럼 로스터 해석",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR"
+      ],
+      "chars": 3310
+    },
+    {
+      "id": "11",
+      "file": "notes/11_코스타리카내추럴_소프트생두_이지스터1.8_주성현.md",
+      "title": "소프트한 생두 3단계 로스팅 — 코스타리카 내추럴 × 이지스터 1.8 (주성현, 180커피)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "다크",
+        "소프트포인트"
+      ],
+      "chars": 4891
+    },
+    {
+      "id": "12",
+      "file": "notes/12_스캇라오_핵심원칙.md",
+      "title": "스캇 라오(Scott Rao) 핵심 원칙",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "BBP"
+      ],
+      "chars": 7096
+    },
+    {
+      "id": "13",
+      "file": "notes/13_로스팅실수와체크포인트_GSC영상.md",
+      "title": "로스팅 실수와 체크포인트 — GSC 생두 업체 영상 (기센 6kg 추정)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "BBP",
+        "블렌드"
+      ],
+      "chars": 2764
+    },
+    {
+      "id": "14",
+      "file": "notes/14_디카페인로스팅_아이덴티티커피랩_쇼츠.md",
+      "title": "디카페인 로스팅 잘하는 법 — 아이덴티티커피랩 (쇼츠)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR"
+      ],
+      "chars": 2399
+    },
+    {
+      "id": "15",
+      "file": "notes/15_월드로스팅챔피언십_우승자접근법.md",
+      "title": "월드 커피 로스팅 챔피언십(WCRC) — 대회 구조·우승자 접근법",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "블렌드"
+      ],
+      "chars": 5660
+    },
+    {
+      "id": "16",
+      "file": "notes/16_국내출처_180커피·언스페셜티·KCRC.md",
+      "title": "국내 출처 — 180커피로스터스 · 언스페셜티 · KCRC (웹 조사)",
+      "author_joo": false,
+      "has_program_rules": false,
+      "tags": [
+        "ETeRR"
+      ],
+      "chars": 1770
+    },
+    {
+      "id": "17",
+      "file": "notes/17_주제별통합노트_레시피엔진초안.md",
+      "title": "주제별 통합 노트 — 01~16 전체 종합 (레시피 엔진 초안)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "BBP",
+        "다크",
+        "소프트포인트",
+        "물",
+        "블렌드"
+      ],
+      "chars": 6087
+    },
+    {
+      "id": "18",
+      "file": "notes/18_이지스터1.8_드럼스피드_로스팅패스파인더.md",
+      "title": "이지스터 1.8 드럼 스피드에 따른 대류열 효율과 향미 발현 — 로스팅패스파인더 블로그",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "BBP",
+        "블렌드"
+      ],
+      "chars": 3752
+    },
+    {
+      "id": "19",
+      "file": "notes/19_생두발아대사와로스팅_ETeRR_로스팅패스파인더.md",
+      "title": "생두의 '발아' 대사가 로스팅에 미치는 영향 (ETeRR 기반 접근) — 로스팅패스파인더 블로그",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "물"
+      ],
+      "chars": 4312
+    },
+    {
+      "id": "20",
+      "file": "notes/20_머신탓하기전5가지진실_로스팅패스파인더.md",
+      "title": "로스팅 머신을 탓하기 전, 놓치고 있는 5가지 결정적 진실 — 로스팅패스파인더 블로그",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "BBP",
+        "다크",
+        "블렌드"
+      ],
+      "chars": 4025
+    },
+    {
+      "id": "21",
+      "file": "notes/21_GearShift_가변드럼속도_ETeRR_로스팅패스파인더.md",
+      "title": "Gear Shift — 가변 드럼 속도 로스팅 (ETeRR의 마지막 퍼즐) — 로스팅패스파인더 블로그",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "BBP",
+        "다크"
+      ],
+      "chars": 6039
+    },
+    {
+      "id": "22",
+      "file": "notes/22_소프트포인트_탄력·박싱효과_로스팅패스파인더.md",
+      "title": "소프트포인트를 잡아라 — 탄력·박싱 효과·냉각 (로스팅패스파인더 블로그)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "소프트포인트"
+      ],
+      "chars": 5084
+    },
+    {
+      "id": "23",
+      "file": "notes/23_하드생두실전_라스라하스블랙다이아몬드_이지스터1.8_주성현.md",
+      "title": "하드(고밀도) 생두 실전 — 코스타리카 라스 라하스 블랙 다이아몬드 × 이지스터 1.8 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "BBP",
+        "소프트포인트"
+      ],
+      "chars": 5906
+    },
+    {
+      "id": "24",
+      "file": "notes/24_DTR기준_머신규모별해석.md",
+      "title": "DTR 기준은 머신 규모·구조에 따라 다르다 — 라오 20~25% 해석 정리",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "BBP"
+      ],
+      "chars": 1565
+    },
+    {
+      "id": "25",
+      "file": "notes/25_같은커피다른하루_케라모이틀비교_ETeRR일관성_주성현.md",
+      "title": "같은 커피, 다른 하루 — 에티오피아 케라모 이틀 비교와 ETeRR의 일관성 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "BBP"
+      ],
+      "chars": 4487
+    },
+    {
+      "id": "26",
+      "file": "notes/26_대류열과공기흐름제어_AeroAccel_주성현.md",
+      "title": "대류열과 공기 흐름 제어 — 일관성과 향미를 완성하는 로스팅의 핵심 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "BBP",
+        "다크",
+        "소프트포인트"
+      ],
+      "chars": 3889
+    },
+    {
+      "id": "27",
+      "file": "notes/27_AeroAccel원리_커피온도와열전달_주성현.md",
+      "title": "Aero Accel과 커피 온도 — 로스팅 열전달의 새로운 접근 (주성현, Aero Accel 원리편)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift"
+      ],
+      "chars": 3723
+    },
+    {
+      "id": "28",
+      "file": "notes/28_공기속도·공급열량·커피온도_AeroAccel초안_주성현.md",
+      "title": "공기 속도·공급 열량·커피 온도에 따른 열전달 — Aero Accel 초안 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel",
+        "GearShift"
+      ],
+      "chars": 2326
+    },
+    {
+      "id": "29",
+      "file": "notes/29_2차팝RoR_다크로스팅열운용_주성현.md",
+      "title": "2차 팝에서 드러나는 열 운용의 진실 — 다크 로스팅 RoR 비교 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift",
+        "다크"
+      ],
+      "chars": 3552
+    },
+    {
+      "id": "30",
+      "file": "notes/30_부피·밀도별로스팅전략_ETeRR_주성현.md",
+      "title": "부피와 밀도에 따른 로스팅 전략 변화와 열전달 안정성 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "ETeRR",
+        "소프트포인트"
+      ],
+      "chars": 3185
+    },
+    {
+      "id": "31",
+      "file": "notes/31_HTST_vs_LTLT_고온투입약한화력_주성현.md",
+      "title": "고온투입하고 약하게 열을 공급하는 이유 — HTST vs LTLT (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "다크",
+        "소프트포인트",
+        "블렌드"
+      ],
+      "chars": 2531
+    },
+    {
+      "id": "32",
+      "file": "notes/32_계절별로스팅환경요인과대처법_주성현.md",
+      "title": "계절별 커피 로스팅에 영향을 미치는 환경 요인과 대처법 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "AeroAccel",
+        "BBP"
+      ],
+      "chars": 3245
+    },
+    {
+      "id": "33",
+      "file": "notes/33_수분의이중역할_열방어와열전달.md",
+      "title": "수분의 이중 역할 — 열 방어 + 열 전달 (딘 정정·보강)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel",
+        "다크",
+        "소프트포인트"
+      ],
+      "chars": 1584
+    },
+    {
+      "id": "34",
+      "file": "notes/34_암기카드_공기흐름·투입온도·색불균일_주성현.md",
+      "title": "로스팅 기본기 암기 — 공기 흐름 오해·투입온도 선택·색 불균일 (주성현 블로그 일부)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "GearShift",
+        "다크"
+      ],
+      "chars": 1243
+    },
+    {
+      "id": "35",
+      "file": "notes/35_최적배치크기찾기_이지스터1.8투입량_주성현.md",
+      "title": "최적의 배치 크기를 찾는 방법 — 효율성과 품질의 균형 (주성현) + 딘 이지스터 1.8 투입량",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "BBP",
+        "다크"
+      ],
+      "chars": 4181
+    },
+    {
+      "id": "36",
+      "file": "notes/36_이지스터1.8_소량배치500g운용.md",
+      "title": "이지스터 1.8 소량 배치(500g) 운용 — 드럼 속도를 낮춰도 될까 (Claude 정리, 52 노트로 수정)",
+      "author_joo": false,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "GearShift",
+        "BBP"
+      ],
+      "chars": 1631
+    },
+    {
+      "id": "37",
+      "file": "notes/37_암기카드_수분증발과AeroAccel트리거_주성현.md",
+      "title": "수분 증발과 Aero Accel 트리거 — 암기 카드 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel"
+      ],
+      "chars": 1543
+    },
+    {
+      "id": "38",
+      "file": "notes/38_메일라드단계연장의문제_프로파일설계규칙_주성현.md",
+      "title": "로스팅과 메일라드 단계에 대한 생각 — \"메일라드를 늘리면 더 맛있나?\" (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel",
+        "소프트포인트"
+      ],
+      "chars": 3144
+    },
+    {
+      "id": "39",
+      "file": "notes/39_화력조절나쁜예_큰폭·의미없는조절_주성현.md",
+      "title": "로스팅 결함과 로그 프로그램 맛 예측 — 화력 조절의 나쁜 예 2가지 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [],
+      "chars": 2785
+    },
+    {
+      "id": "40",
+      "file": "notes/40_흡열과발열반응_전과정_주성현.md",
+      "title": "커피 로스팅 전 과정에서의 흡열과 발열 반응 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel"
+      ],
+      "chars": 2844
+    },
+    {
+      "id": "41",
+      "file": "notes/41_로스팅무게손실_원인·속도·가스배출_주성현.md",
+      "title": "로스팅 중 무게 손실(로스트 로스) — 원인·속도·로스팅 후 가스 배출 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "다크"
+      ],
+      "chars": 2222
+    },
+    {
+      "id": "42",
+      "file": "notes/42_색·디벨롭·배출전온도상승·스윙바이_주성현.md",
+      "title": "색, 디벨롭먼트, 배출 전 온도 상승 그리고 스윙바이 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "다크"
+      ],
+      "chars": 3993
+    },
+    {
+      "id": "43",
+      "file": "notes/43_1차팝과BTRoR_히트배리어_주성현.md",
+      "title": "1차 팝(1차 크랙)과 BT RoR의 역할 — 히트 배리어 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "AeroAccel",
+        "GearShift"
+      ],
+      "chars": 2060
+    },
+    {
+      "id": "44",
+      "file": "notes/44_기온·습도에따른배기조절_주성현.md",
+      "title": "기온·습도에 따른 로스팅 배기 조절 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "AeroAccel"
+      ],
+      "chars": 2509
+    },
+    {
+      "id": "45",
+      "file": "notes/45_배치간간격_BBP온도찾기_주성현.md",
+      "title": "배치 간의 간격 설정 — BBP 온도 찾는 법 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "BBP"
+      ],
+      "chars": 2125
+    },
+    {
+      "id": "46",
+      "file": "notes/46_AeroAccel_이지스터1.8_최초실전글_주성현.md",
+      "title": "Aero Accel (이지스터 1.8) — 주성현 블로그 최초 Aero Accel 실전 글",
+      "author_joo": true,
+      "has_program_rules": false,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "AeroAccel",
+        "GearShift"
+      ],
+      "chars": 2405
+    },
+    {
+      "id": "47",
+      "file": "notes/47_배출포인트와산미조절_COCO2배치_이지스터1.8_주성현.md",
+      "title": "배출 포인트와 산미의 조절 — 코코넛 인퓨즈드 \"COCO\" 2배치 비교 (주성현, 이지스터 1.8)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "BBP"
+      ],
+      "chars": 3207
+    },
+    {
+      "id": "48",
+      "file": "notes/48_큰로스터로스팅_W30vs이지스터4_주성현.md",
+      "title": "큰 로스터로 로스팅 — 기센 W30(24kg) vs 이지스터4(4.5kg) (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "AeroAccel"
+      ],
+      "chars": 1748
+    },
+    {
+      "id": "49",
+      "file": "notes/49_이지스터1.8_2kg풀배치_베르나르디나내추럴_주성현.md",
+      "title": "이지스터 1.8 2kg 풀배치 로스팅 — 엘살바도르 베르나르디나 내추럴 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "ETeRR",
+        "다크"
+      ],
+      "chars": 3148
+    },
+    {
+      "id": "50",
+      "file": "notes/50_블렌딩무산소30워시드70_이지스터단위확정_주성현.md",
+      "title": "블렌딩: 무산소 30% + 워시드 70% — 그리고 이지스터 1.8 단위 확정 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8",
+        "BBP",
+        "다크",
+        "블렌드"
+      ],
+      "chars": 3246
+    },
+    {
+      "id": "51",
+      "file": "notes/51_수분와장창_ETRoR급락대응_주성현.md",
+      "title": "수분이 와장창 — ET RoR 급락 구간 대응 (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "소프트포인트"
+      ],
+      "chars": 2482
+    },
+    {
+      "id": "52",
+      "file": "notes/52_투입량많아질때_1.2kg_vs_1.5kg_이지스터1.8_주성현.md",
+      "title": "투입량이 많아질 때 — 이지스터 1.8 1.2kg vs 1.5kg (주성현)",
+      "author_joo": true,
+      "has_program_rules": true,
+      "tags": [
+        "이지스터1.8"
+      ],
+      "chars": 3081
+    }
+  ]
+}
