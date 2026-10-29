@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAAS 로스팅</title>
+<style>
+  :root{
+    --bg:#121417; --panel:#1b1e23; --panel2:#23272e; --line:#2f343c; --text:#e8e6e3; --mute:#9aa0a8;
+    --bt:#ff6b3d; --et:#4ea8de; --btror:#ffc145; --etror:#8fd3f4; --ref:#8a8f98;
+    --warn:#ff5a5f; --sugg:#ffc145; --info:#7a8290; --ok:#5ccf8f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  button{font:inherit;color:inherit;cursor:pointer}
+  .app{display:grid;grid-template-columns:1fr 340px;grid-template-rows:auto 1fr;height:100vh;gap:10px;padding:10px}
+  header{grid-column:1/3;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .logo{font-weight:800;letter-spacing:.08em;font-size:20px}
+  .chip{padding:4px 10px;border-radius:999px;background:var(--panel2);font-size:13px;color:var(--mute)}
+  .chip.roasting{background:#3a1f16;color:var(--bt)} .chip.done{background:#173326;color:var(--ok)}
+  header .grow{flex:1}
+  header select,header input{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px}
+  .main{display:flex;flex-direction:column;gap:10px;min-width:0;min-height:0}
+  .readouts{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .ro{background:var(--panel);border-radius:12px;padding:8px 12px}
+  .ro .k{font-size:12px;color:var(--mute)} .ro .v{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+  .ro .v small{font-size:14px;color:var(--mute);font-weight:500}
+  .chartwrap{position:relative;flex:1;min-height:260px;background:var(--panel);border-radius:12px;overflow:hidden}
+  canvas{display:block;width:100%;height:100%}
+  .banner{position:absolute;left:50%;top:36px;transform:translateX(-50%);max-width:80%;padding:10px 16px;border-radius:10px;
+    font-size:16px;font-weight:600;box-shadow:0 6px 24px #0008;display:none}
+  .banner.경고{background:var(--warn);color:#fff} .banner.제안{background:var(--sugg);color:#1b1300} .banner.정보{background:var(--panel2)}
+  .idlemsg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--mute);text-align:center}
+  .idlemsg b{color:var(--text);font-size:22px}
+  .events{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .events button{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 0;font-size:17px;font-weight:600}
+  .events button.done{border-color:var(--ok);color:var(--ok)}
+  .events button.charge{background:#3a1f16;border-color:var(--bt);color:var(--bt)}
+  .events button.drop{background:#1d2a3a;border-color:var(--et);color:var(--et)}
+  .events button:disabled{opacity:.35;cursor:default}
+  .phases{display:flex;height:22px;border-radius:6px;overflow:hidden;font-size:12px;background:var(--panel2)}
+  .phases div{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden}
+  aside{display:flex;flex-direction:column;gap:10px;min-height:0}
+  .card{background:var(--panel);border-radius:12px;padding:10px 12px}
+  .card h3{margin:0 0 8px;font-size:13px;color:var(--mute);font-weight:600}
+  .ctrl{display:grid;grid-template-columns:62px 44px 1fr 44px;align-items:center;gap:6px;margin-bottom:8px}
+  .ctrl .name{font-size:14px} .ctrl .name small{display:block;color:var(--mute);font-size:11px}
+  .ctrl button{height:44px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);font-size:22px;font-weight:700}
+  .ctrl input{height:44px;width:100%;text-align:center;font-size:24px;font-weight:700;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;font-variant-numeric:tabular-nums}
+  .alerts{flex:1;overflow:auto;min-height:120px;display:flex;flex-direction:column;gap:6px}
+  .al{border-left:4px solid var(--info);background:var(--panel2);border-radius:6px;padding:6px 8px;font-size:13px;line-height:1.4}
+  .al.경고{border-color:var(--warn)} .al.제안{border-color:var(--sugg)}
+  .al .meta{color:var(--mute);font-size:11px}
+  .row{display:flex;gap:8px;align-items:center}
+  .row select{flex:1;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px}
+  .sum{font-size:13px;color:var(--mute);line-height:1.6}
+  .sum b{color:var(--text)}
+  dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;padding:18px;width:min(420px,92vw)}
+  dialog::backdrop{background:#000a}
+  dialog h2{margin:0 0 12px;font-size:18px}
+  dialog label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+  dialog input,dialog textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:16px}
+  .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+  .btns button{padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);font-weight:600}
+  .btns .primary{background:var(--bt);border-color:var(--bt);color:#fff}
+  .btns .danger{background:var(--warn);border-color:var(--warn);color:#fff}
+  .warnlist{margin:0;padding-left:18px;line-height:1.5}
+  .legend{position:absolute;left:52px;top:8px;display:flex;gap:10px;font-size:11px;color:var(--mute)}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle}
+  @media (max-width:900px){.app{grid-template-columns:1fr}.readouts{grid-template-columns:repeat(3,1fr)}header{grid-column:1}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">TAAS</div>
+    <span id="status" class="chip">연결 중…</span>
+    <span id="batchName" class="chip" style="display:none"></span>
+    <span class="grow"></span>
+    <span class="chip" id="sourceName"></span>
+    <label class="chip">배속
+      <select id="speed"><option>1</option><option>2</option><option>5</option><option>10</option><option>20</option></select>
+    </label>
+    <button id="soundBtn" class="chip">🔔 소리 켜짐</button>
+  </header>
+
+  <section class="main">
+    <div class="readouts">
+      <div class="ro"><div class="k">시간</div><div class="v" id="rTime">0:00</div></div>
+      <div class="ro"><div class="k" style="color:var(--bt)">BT 원두</div><div class="v" id="rBT">–</div></div>
+      <div class="ro"><div class="k" style="color:var(--et)">ET 환경</div><div class="v" id="rET">–</div></div>
+      <div class="ro"><div class="k" style="color:var(--btror)">BT RoR</div><div class="v" id="rBR">–</div></div>
+      <div class="ro"><div class="k" style="color:var(--etror)">ET RoR</div><div class="v" id="rER">–</div></div>
+      <div class="ro"><div class="k">디벨롭 / DTR</div><div class="v" id="rDev">–</div></div>
+    </div>
+    <div class="chartwrap">
+      <canvas id="chart"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--bt)"></i>BT</span><span><i style="background:var(--et)"></i>ET</span>
+        <span><i style="background:var(--btror)"></i>BT RoR</span><span><i style="background:var(--etror)"></i>ET RoR</span>
+        <span id="refLegend" style="display:none"><i style="background:var(--ref)"></i>기준 배치</span>
+      </div>
+      <div id="banner" class="banner"></div>
+      <div id="idle" class="idlemsg"></div>
+    </div>
+    <div class="phases" id="phases"></div>
+    <div class="events">
+      <button id="evCharge" class="charge">투입</button>
+      <button data-ev="yellow">옐로</button>
+      <button data-ev="fc">1차</button>
+      <button data-ev="fc_end">1차 끝</button>
+      <button data-ev="sc">2차</button>
+      <button data-ev="drop" class="drop">배출</button>
+    </div>
+  </section>
+
+  <aside>
+    <div class="card">
+      <h3>조작</h3>
+      <div class="ctrl" data-name="gas" data-step="2"><div class="name">화력<small>mmAq</small></div>
+        <button data-d="-1">−</button><input inputmode="decimal"><button data-d="1">+</button></div>
+      <div class="ctrl" data-name="exhaust" data-step="5"><div class="name">배기<small>팬</small></div>
+        <button data-d="-1">−</button><input inputmode="decimal"><button data-d="1">+</button></div>
+      <div class="ctrl" data-name="drum" data-step="1"><div class="name">드럼<small>rpm</small></div>
+        <button data-d="-1">−</button><input inputmode="decimal"><button data-d="1">+</button></div>
+    </div>
+    <div class="card">
+      <h3>기준 배치 겹쳐 보기</h3>
+      <div class="row"><select id="refSel"><option value="">없음</option></select></div>
+    </div>
+    <div class="card"><h3>요약</h3><div class="sum" id="summary">투입 전</div></div>
+    <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <h3>경고 · 제안</h3>
+      <div class="alerts" id="alerts"></div>
+    </div>
+  </aside>
+</div>
+
+<dialog id="dlgCharge">
+  <h2>투입</h2>
+  <label>생두 이름</label><input id="cName" placeholder="예: 에티오피아 벤사 내추럴">
+  <label>투입량 (kg) — 이지스터 1.8은 0.5~2.0</label><input id="cWeight" type="number" step="0.1" value="1.2">
+  <label>메모 (가공·밀도·수분 등)</label><input id="cNote" placeholder="예: 내추럴, 밀도 760, 수분 10.5">
+  <div class="btns"><button value="cancel" onclick="dlgCharge.close()">취소</button><button class="primary" id="cGo">투입</button></div>
+</dialog>
+
+<dialog id="dlgWarn">
+  <h2>잠깐, 지금 화력을 내려도 될까?</h2>
+  <ul class="warnlist" id="warnList"></ul>
+  <div class="btns"><button id="wCancel">기다릴게</button><button class="danger" id="wForce">그래도 적용</button></div>
+</dialog>
+
+<dialog id="dlgFinish">
+  <h2>배출 완료 — 결과 기록</h2>
+  <div class="sum" id="finSum"></div>
+  <label>배출량 (kg)</label><input id="fOut" type="number" step="0.001" placeholder="예: 1.051">
+  <label>홀빈 색도 / 분쇄 색도</label>
+  <div class="row"><input id="fCW" type="number" step="0.1" placeholder="홀빈"><input id="fCG" type="number" step="0.1" placeholder="분쇄"></div>
+  <label>컵 메모 (나중에 써도 됨)</label><textarea id="fCup" rows="2"></textarea>
+  <div class="btns"><button id="fSkip">나중에</button><button class="primary" id="fSave">저장</button></div>
+</dialog>
+
+<script>
+const $ = s => document.querySelector(s);
+const st = {samples: [], alerts: [], events: [], controls: [], status: null, ref: null, n: 0, na: 0, t: 0,
+            meta: {}, summary: null, live: {}, ctrlNow: {}, sound: true, editing: null, pendingCtrl: null};
+const fmt = t => { t = Math.max(0, Math.round(t)); return `${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`; };
+const num = (v, d=1) => v == null ? '–' : Number(v).toFixed(d);
+async function api(path, body) {
+  const r = await fetch(path, body ? {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)} : {});
+  return r.json();
+}
+
+/* ---------- 소리 ---------- */
+let actx = null;
+function beep(freq, dur, times=1, gap=0.12) {
+  if (!st.sound) return;
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  for (let i = 0; i < times; i++) {
+    const o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + i * (dur + gap);
+    o.frequency.value = freq; o.type = 'sine';
+    g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.35, t0 + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g).connect(actx.destination); o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+}
+const soundFor = a => a.level === '경고' ? beep(880, .18, 3) : a.level === '제안' ? beep(660, .15, 1)
+                    : (a.code === 'FC_CANDIDATE' ? beep(520, .12, 2) : null);
+$('#soundBtn').onclick = () => { st.sound = !st.sound; $('#soundBtn').textContent = st.sound ? '🔔 소리 켜짐' : '🔕 소리 꺼짐';
+  if (st.sound) beep(660, .1); };
+document.addEventListener('click', () => { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); }, {once:true});
+
+/* ---------- 배너 ---------- */
+let bannerTimer = null;
+function banner(a) {
+  const b = $('#banner'); b.className = 'banner ' + a.level; b.textContent = a.message; b.style.display = 'block';
+  clearTimeout(bannerTimer); bannerTimer = setTimeout(() => b.style.display = 'none', a.level === '경고' ? 12000 : 7000);
+}
+
+/* ---------- 상태 받기 ---------- */
+async function poll() {
+  try {
+    const d = await api(`/api/state?since=${st.n}&alerts_since=${st.na}`);
+    if (d.status === 'roasting' && st.status !== 'roasting' && st.n > 0 && d.n_samples < st.n) resetLocal();
+    if (d.n_samples < st.n) { resetLocal(); return; }
+    st.samples.push(...d.samples); st.n = d.n_samples;
+    const fresh = d.alerts; st.alerts.push(...fresh); st.na = d.n_alerts;
+    const prevStatus = st.status;
+    Object.assign(st, {status: d.status, t: d.t, events: d.events, controls: d.controls, meta: d.meta,
+                       summary: d.summary, live: d.live, ctrlNow: d.controls_now, ref: d.reference, bbp: d.bbp});
+    $('#sourceName').textContent = d.source;
+    if (document.activeElement !== $('#speed')) $('#speed').value = String(d.speed);
+    if (prevStatus !== null) fresh.forEach(a => { soundFor(a); if (a.level !== '정보' || a.code === 'FC_CANDIDATE') banner(a); });
+    if (prevStatus === 'roasting' && d.status === 'done') openFinish();
+    render();
+  } catch (e) { $('#status').textContent = '서버 연결 끊김'; }
+}
+function resetLocal() { Object.assign(st, {samples: [], alerts: [], n: 0, na: 0}); }
+
+/* ---------- 그리기 ---------- */
+function render() {
+  const s = st.status;
+  $('#status').textContent = s === 'roasting' ? '로스팅 중' : s === 'done' ? '배출 완료' : '예열 · BBP';
+  $('#status').className = 'chip ' + (s || '');
+  const bn = $('#batchName'); bn.style.display = st.meta && st.meta.name ? '' : 'none';
+  if (st.meta && st.meta.name) bn.textContent = `${st.meta.name} · ${st.meta.weight_in}kg`;
+  const last = st.samples[st.samples.length - 1] || {};
+  const live = s === 'roasting' ? last : st.live;
+  $('#rTime').textContent = s === 'idle' ? '–' : fmt(st.t);
+  $('#rBT').innerHTML = `${num(live.bt)}<small>℃</small>`;
+  $('#rET').innerHTML = `${num(live.et)}<small>℃</small>`;
+  $('#rBR').textContent = s === 'roasting' ? num(last.bt_ror) : '–';
+  $('#rER').textContent = s === 'roasting' ? num(last.et_ror) : '–';
+  const sm = st.summary || {};
+  $('#rDev').innerHTML = sm.dev_time != null ? `${fmt(sm.dev_time)}<small> ${num(sm.dtr)}%</small>` : '–';
+  // 버튼
+  const evs = new Set(st.events.map(e => e.type));
+  $('#evCharge').disabled = s === 'roasting';
+  $('#evCharge').textContent = s === 'done' ? '다음 배치' : '투입';
+  document.querySelectorAll('[data-ev]').forEach(b => { b.disabled = s !== 'roasting'; b.classList.toggle('done', evs.has(b.dataset.ev)); });
+  // 조작 값
+  document.querySelectorAll('.ctrl').forEach(c => { const inp = c.querySelector('input');
+    if (st.editing !== c.dataset.name) inp.value = st.ctrlNow[c.dataset.name] ?? ''; });
+  // 단계 비율
+  const ph = sm.phases, pd = $('#phases');
+  pd.innerHTML = ph ? `<div style="width:${ph.dry}%;background:#2e4a3a">건조 ${ph.dry}%</div><div style="width:${ph.maillard}%;background:#5a4426">메일라드 ${ph.maillard}%</div><div style="width:${ph.dev}%;background:#5a2a20">디벨롭 ${ph.dev}%</div>`
+                    : `<div style="width:100%;color:var(--mute)">옐로·1차를 누르면 건조 / 메일라드 / 디벨롭 비율이 나와</div>`;
+  // 요약
+  const lines = [];
+  if (sm.tp) lines.push(`TP <b>${fmt(sm.tp.t)}</b> / <b>${num(sm.tp.bt)}℃</b>`);
+  if (sm.fc) lines.push(`1차 <b>${fmt(sm.fc.t)}</b> / <b>${num(sm.fc.bt)}℃</b>`);
+  if (sm.drop) lines.push(`배출 <b>${fmt(sm.drop.t)}</b> / <b>${num(sm.drop.bt)}℃</b>`);
+  if (st.meta && st.meta.loss_pct != null) lines.push(`손실률 <b>${st.meta.loss_pct}%</b>`);
+  if (s !== 'roasting' && st.bbp) lines.push(`배출 후 <b>${fmt(st.bbp.since_drop_sec)}</b> 경과 — BBP 쿨다운 후 재가열 (45번)`);
+  $('#summary').innerHTML = lines.join('<br>') || (s === 'idle' ? '투입 전' : '');
+  // 경고 목록
+  $('#alerts').innerHTML = st.alerts.slice().reverse().map(a =>
+    `<div class="al ${a.level}"><div class="meta">${fmt(a.t)} · ${a.level}${a.note ? ' · 노트 ' + a.note : ''}</div>${a.message}</div>`).join('');
+  // 기준 배치
+  $('#refLegend').style.display = st.ref ? '' : 'none';
+  // 대기 화면
+  const idle = $('#idle');
+  if (s === 'idle') { idle.style.display = 'flex';
+    idle.innerHTML = `<b>예열 · BBP</b><div>BT ${num(st.live.bt)}℃ · ET ${num(st.live.et)}℃</div><div>투입온도가 되면 [투입]을 눌러</div>`;
+  } else idle.style.display = 'none';
+  draw();
+}
+
+function draw() {
+  const c = $('#chart'), dpr = window.devicePixelRatio || 1, W = c.clientWidth, H = c.clientHeight;
+  if (c.width !== W * dpr || c.height !== H * dpr) { c.width = W * dpr; c.height = H * dpr; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const pad = {l: 46, r: 42, t: 44, b: 34};
+  const refEnd = st.ref ? st.ref.samples[st.ref.samples.length - 1].t : 0;
+  const tMax = Math.max(720, st.t + 60, refEnd + 30);
+  const T = {min: 50, max: 250}, R = {min: 0, max: 30};
+  const x = t => pad.l + (t / tMax) * (W - pad.l - pad.r);
+  const yT = v => pad.t + (1 - (v - T.min) / (T.max - T.min)) * (H - pad.t - pad.b);
+  const yR = v => pad.t + (1 - (v - R.min) / (R.max - R.min)) * (H - pad.t - pad.b);
+  // 격자
+  g.font = '11px system-ui'; g.lineWidth = 1;
+  for (let v = T.min; v <= T.max; v += 25) { g.strokeStyle = '#262a31'; g.beginPath(); g.moveTo(pad.l, yT(v)); g.lineTo(W - pad.r, yT(v)); g.stroke();
+    g.fillStyle = '#7a808a'; g.textAlign = 'right'; g.fillText(v, pad.l - 6, yT(v) + 4); }
+  for (let v = R.min; v <= R.max; v += 5) { g.fillStyle = '#9c8a5a'; g.textAlign = 'left'; g.fillText(v, W - pad.r + 6, yR(v) + 4); }
+  for (let t = 0; t <= tMax; t += 60) { g.strokeStyle = '#21252b'; g.beginPath(); g.moveTo(x(t), pad.t); g.lineTo(x(t), H - pad.b); g.stroke();
+    g.fillStyle = '#7a808a'; g.textAlign = 'center'; g.fillText(t / 60, x(t), H - pad.b + 14); }
+  g.fillText('분', W - pad.r, H - 6);
+  const line = (pts, color, width, dash=[]) => { g.strokeStyle = color; g.lineWidth = width; g.setLineDash(dash); g.beginPath();
+    let on = false; for (const [a, b] of pts) { if (b == null || isNaN(b)) { on = false; continue; } on ? g.lineTo(a, b) : g.moveTo(a, b); on = true; }
+    g.stroke(); g.setLineDash([]); };
+  // 기준 배치
+  if (st.ref) {
+    const rs = st.ref.samples;
+    line(rs.map(s => [x(s.t), yT(s.bt)]), '#8a8f98', 1.5, [6, 4]);
+    line(rs.filter(s => s.t > 60 && s.bt_ror != null).map(s => [x(s.t), yR(s.bt_ror)]), '#6d6650', 1.2, [6, 4]);
+    st.ref.events.filter(e => e.type !== 'charge').forEach(e => { g.fillStyle = '#8a8f98'; g.textAlign = 'center'; g.fillText('기준 ' + e.label, x(e.t), H - pad.b - 6); });
+  }
+  const ss = st.samples;
+  if (ss.length) {
+    const rorOK = s => s.t > 45;   // 투입 직후 RoR은 의미 없어서 숨김
+    line(ss.filter(rorOK).map(s => [x(s.t), s.et_ror == null ? null : yR(Math.max(R.min, Math.min(R.max, s.et_ror)))]), '#8fd3f4', 1.2);
+    line(ss.filter(rorOK).map(s => [x(s.t), s.bt_ror == null ? null : yR(Math.max(R.min, Math.min(R.max, s.bt_ror)))]), '#ffc145', 2);
+    line(ss.map(s => [x(s.t), yT(s.et)]), '#4ea8de', 2);
+    line(ss.map(s => [x(s.t), yT(s.bt)]), '#ff6b3d', 2.6);
+  }
+  // 이벤트
+  st.events.forEach(e => { const X = x(e.t); g.strokeStyle = e.auto ? '#5c6470' : '#c9ced6'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(X, pad.t); g.lineTo(X, H - pad.b); g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#e8e6e3'; g.textAlign = 'center'; g.font = '600 12px system-ui';
+    g.fillText(`${e.label}${e.auto ? '(자동)' : ''} ${e.bt != null ? Number(e.bt).toFixed(1) : ''}`, X, pad.t - 6); g.font = '11px system-ui'; });
+  // 조작 기록
+  st.controls.forEach(cc => { const X = x(cc.t), lab = {gas: 'G', exhaust: 'A', drum: 'D'}[cc.name];
+    g.fillStyle = {gas: '#ff6b3d', exhaust: '#4ea8de', drum: '#9aa0a8'}[cc.name];
+    g.beginPath(); g.arc(X, H - pad.b - 18 - ({gas: 0, exhaust: 12, drum: 24}[cc.name]), 3, 0, 7); g.fill();
+    g.textAlign = 'left'; g.fillText(`${lab}${cc.to}`, X + 5, H - pad.b - 14 - ({gas: 0, exhaust: 12, drum: 24}[cc.name])); });
+}
+window.addEventListener('resize', draw);
+
+/* ---------- 조작 ---------- */
+document.querySelectorAll('.ctrl').forEach(c => {
+  const name = c.dataset.name, step = +c.dataset.step, inp = c.querySelector('input');
+  c.querySelectorAll('button').forEach(b => b.onclick = () => setCtrl(name, (+st.ctrlNow[name] || 0) + step * +b.dataset.d));
+  inp.onfocus = () => st.editing = name;
+  inp.onblur = () => { st.editing = null; };
+  inp.onkeydown = e => { if (e.key === 'Enter') { setCtrl(name, +inp.value); inp.blur(); } };
+});
+async function setCtrl(name, value, force=false) {
+  const r = await api('/api/control', {name, value, force});
+  if (r.confirm) {
+    st.pendingCtrl = {name, value};
+    $('#warnList').innerHTML = r.warnings.map(w => `<li>${w.message}${w.note ? ` <span style="color:var(--mute)">(노트 ${w.note})</span>` : ''}</li>`).join('');
+    beep(880, .15, 2); $('#dlgWarn').showModal();
+  }
+  poll();
+}
+$('#wCancel').onclick = () => $('#dlgWarn').close();
+$('#wForce').onclick = () => { $('#dlgWarn').close(); const p = st.pendingCtrl; if (p) setCtrl(p.name, p.value, true); };
+
+/* ---------- 이벤트 ---------- */
+document.querySelectorAll('[data-ev]').forEach(b => b.onclick = async () => {
+  if (b.dataset.ev === 'drop' && !confirm('배출할까?')) return;
+  await api('/api/event', {type: b.dataset.ev}); poll();
+});
+$('#evCharge').onclick = async () => {
+  if (st.status === 'done') { await api('/api/new', {}); resetLocal(); poll(); return; }
+  $('#dlgCharge').showModal(); $('#cName').focus();
+};
+$('#cGo').onclick = async () => {
+  const r = await api('/api/charge', {name: $('#cName').value, weight: $('#cWeight').value, note: $('#cNote').value});
+  $('#dlgCharge').close(); if (!r.ok) alert(r.error); resetLocal(); poll();
+};
+
+/* ---------- 배출 후 ---------- */
+function openFinish() {
+  const sm = st.summary || {};
+  $('#finSum').innerHTML = `${st.meta.name} · ${st.meta.weight_in}kg<br>총 ${fmt(sm.total || 0)}${sm.fc ? ` · 1차 ${fmt(sm.fc.t)} · DTR ${sm.dtr}%` : ''}`;
+  $('#dlgFinish').showModal();
+}
+$('#fSkip').onclick = () => $('#dlgFinish').close();
+$('#fSave').onclick = async () => {
+  const r = await api('/api/finish', {weight_out: $('#fOut').value || null, color_whole: $('#fCW').value || null,
+                                      color_ground: $('#fCG').value || null, cup: $('#fCup').value});
+  $('#dlgFinish').close(); if (r.loss_pct != null) banner({level: '정보', message: `저장 완료 · 손실률 ${r.loss_pct}%`});
+  loadBatches(); poll();
+};
+
+/* ---------- 기준 배치·배속 ---------- */
+async function loadBatches() {
+  const list = await api('/api/batches'), sel = $('#refSel'), cur = sel.value;
+  sel.innerHTML = '<option value="">없음</option>' + list.map(b =>
+    `<option value="${b.file}">${(b.started || '').slice(5, 16).replace('T', ' ')} ${b.name || ''} ${b.weight_in || ''}kg${b.fc ? ' · 1차 ' + fmt(b.fc.t) : ''}</option>`).join('');
+  sel.value = cur;
+}
+$('#refSel').onchange = async e => { await api('/api/reference', {file: e.target.value || null}); poll(); };
+$('#speed').onchange = e => api('/api/speed', {speed: +e.target.value});
+
+loadBatches(); poll(); setInterval(poll, 500);
+</script>
+</body>
+</html>

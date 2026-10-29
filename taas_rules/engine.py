@@ -89,16 +89,26 @@ class RoastEngine:
         return series[i] if i >= 0 else None
 
     def _ror(self, key: str) -> Optional[float]:
+        """최근 window_sec 동안의 기울기(최소제곱)를 ℃/min으로 — 두 점 차이보다 노이즈에 강함"""
         w = self.c["ror"]["window_sec"]
         cur = self.s.samples[-1]
         t0 = cur.t - w
         if t0 < self.s.times[0]:
             return None
-        past = self._value_at(t0, self.s.samples)
-        dt = cur.t - past.t
-        if dt <= 0:
+        pts = []
+        for s in reversed(self.s.samples):
+            if s.t < t0:
+                break
+            pts.append((s.t, getattr(s, key)))
+        if len(pts) < 3:
             return None
-        return (getattr(cur, key) - getattr(past, key)) * 60.0 / dt
+        n = len(pts)
+        mt = sum(p[0] for p in pts) / n
+        mv = sum(p[1] for p in pts) / n
+        den = sum((p[0] - mt) ** 2 for p in pts)
+        if den <= 0:
+            return None
+        return sum((p[0] - mt) * (p[1] - mv) for p in pts) / den * 60.0
 
     def _ror_ago(self, series: list, sec: float) -> Optional[float]:
         return self._value_at(self.s.times[-1] - sec, series) if self.s.times else None
@@ -147,13 +157,13 @@ class RoastEngine:
         st, cur = self.s, self.s.samples[-1]
         if st.bt_tp is None:
             low = min(st.samples, key=lambda x: x.bt)
-            if cur.bt >= low.bt + 1.0 and low is not st.samples[0]:
+            if cur.bt >= low.bt + 0.6 and low is not st.samples[0]:
                 st.bt_tp = low.t
                 out.append(Alert(cur.t, "정보", "BT_TP",
                                  f"터닝포인트 {_mmss(low.t)} / {low.bt:.1f}℃ — 내 기준 배치 TP와 비교 (다르면 BBP 먼저 의심)", "13·25"))
         if st.et_tp is None:
             low = min(st.samples, key=lambda x: x.et)
-            if cur.et >= low.et + 1.0 and low is not st.samples[0]:
+            if cur.et >= low.et + 0.6 and low is not st.samples[0]:
                 st.et_tp = low.t
                 out.append(Alert(cur.t, "정보", "ET_TP", f"ET 터닝포인트 {_mmss(low.t)}", "50"))
 
